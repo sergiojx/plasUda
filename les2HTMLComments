@@ -29,6 +29,10 @@ tokens = ('LANGLE', # <
 states = ('htmlcomment', 'exclusive'),
 t_ignore = ' ' # shortcut for whitespace
 
+def t_eolcomment(token):
+    r'//[^\n]*'
+    return token
+
 def t_htmlcomment(token):
     r'<!--'
     token.lexer.begin('htmlcomment')
