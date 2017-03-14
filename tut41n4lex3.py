@@ -1,3 +1,4 @@
+import sys
 # reserved word list
 reserved = ['dim',
             'as',
@@ -188,7 +189,6 @@ class Numbers(Symbol):
             patsymbol = 'letter'
         else:
            if self.digit(character):
-               print 'digit'
                patsymbol = 'digit'
                
         stateXist = False
@@ -202,13 +202,13 @@ class Numbers(Symbol):
                         return "ACCEPTED"
                     else:
                         self.Idetected = self.Idetected + character
-                        print self.Idetected
+                        # print self.Idetected
                         return "CONTINUE"
                     break
                    
         if stateXist == False:
             self.__reset()
-            print "NUMBER NO ACCEPTED"
+            # print "NUMBER NO ACCEPTED"
             return "NO_ACCEPTED"
                         
     def getRollBack(self):
@@ -411,21 +411,23 @@ opss = Relops()
 # string token detector
 strTkn = Stringk()
 
+
+# lines = sys.stdin.readlines()
 strTest ="""
-SUB
-
-    diM
-    WHILe
-  nExt
-  -0.00346parangacutirimicuaro
+SUB floyd_warsall (n%)
+FOR k = 1 TO n%
+    FOR i = 1 TO n%
+        FOR j = 1 TO n%
+            G(i, j) = min(G(i, j), G(i, k) + G(k, j))
+        NEXT
+    NEXT
+NEXT
 END SUB
-
-"magola paniagua"
 """
 
 
 
-detectors = {0:lakey,1:numnum,2:strTkn,3:opss,}
+detectors = {0:lakey,1:opss,2:numnum,3:strTkn}
 detIndex = 0
 i = 0
 rowCtr = 0
@@ -433,7 +435,7 @@ colCtr = 0
 
 while i < len(strTest):
     if strTest[i] == "'":
-        print "Comment Catched"
+        # print "Comment Catched"
         while strTest[i] != "\n":
             i = i + 1
     # new line counter increment
@@ -444,12 +446,8 @@ while i < len(strTest):
     # before entering detection \n and space are ignored
     if strTest[i] != '\n' and strTest[i] != ' ':
         startI = i
-        print strTest[i:]
-        print "__________________"
         # Call current indexed detector fsm
-        print "detIndex: %s" % detIndex
         acceptxt = detect(detectors[detIndex], startI, strTest, colCtr)
-        print acceptxt[0]
         if acceptxt[0] == "ACCEPTED":
                    rollBack = detectors[detIndex].getRollBack()
                    acceptxt[1] = acceptxt[1] - rollBack
@@ -460,8 +458,6 @@ while i < len(strTest):
                    detIndex = 0
                    colCtr = acceptxt[2] - rollBack
                    i = acceptxt[1] + 1
-                   print strTest[i:]
-                   print "******************"
         else:
                    if detIndex >=3:
                      print "ERROR ERROR ERROR"
