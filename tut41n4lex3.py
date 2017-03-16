@@ -411,8 +411,18 @@ opss = Relops()
 # string token detector
 strTkn = Stringk()
 
+"""
+strTest = "\n"
+lines = sys.stdin.readlines()
 
-# lines = sys.stdin.readlines()
+for line in lines:
+   strTest = strTest + line
+
+
+strTest = strTest + "\n"
+
+"""
+ 
 strTest ="""
 SUB floyd_warsall (n%)
 FOR k = 1 TO n%
@@ -460,7 +470,7 @@ while i < len(strTest):
                    i = acceptxt[1] + 1
         else:
                    if detIndex >=3:
-                     print "ERROR ERROR ERROR"
+                     print "Error lexico (linea: %s, posicion: %s)"  %(str(rowCtr),str(colCtr) )
                      break
                    else:
                      # Check next detector FSM
@@ -473,29 +483,4 @@ while i < len(strTest):
     
                    
 
-"""
-strtest = Stringk()
-for tt in '"magola paniagua"':
-    accepted = strtest.fsm(tt)
-    if (accepted == "ACCEPTED"):
-        print strtest.getLex()
-        break
-    elif (accepted == "NO_ACCEPTED"):
-        print accepted
-        break
-        
-"""
 
-
-"""
-numX = Numbers()
-for tt in '-1.34efrgr':
-    accepted = numX.fsm(tt)
-    if (accepted == "ACCEPTED"):
-        print numX.getLex()
-        break
-    elif (accepted == "NO_ACCEPTED"):
-        print accepted
-        break
-        
-"""
