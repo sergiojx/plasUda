@@ -60,9 +60,9 @@ class Identifier(Symbol):
         self.ROLLBACK = 1
         self.current = [1]
         # it must start with a letter
-        self.EDGES = {(1,'letter'):[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],
-                        (2,'letter'):[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],
-                        (3,'digit'):[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24],
+        self.EDGES = {(1,'letter'):[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],
+                        (2,'letter'):[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],
+                        (3,'digit'):[2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25],
                         (4,'_'):[2,3],
                         (5,'$'):[self.ACCEPTK],
                         (6,'%'):[self.ACCEPTK],
@@ -84,6 +84,7 @@ class Identifier(Symbol):
                         (22,'-'):[self.ACCEPTK],
                         (23,'*'):[self.ACCEPTK],
                         (24,'/'):[self.ACCEPTK],
+                        (25,'?'):[self.ACCEPTK],
                         }
         self.ACCEPTING = [self.ACCEPTK]
          
@@ -303,9 +304,9 @@ class Stringk(Symbol):
     
     def __init__(self):
         self.Idetected = ''
-        self.ACCEPTK = 25
+        self.ACCEPTK = 26
         self.ROLLBACK = 0
-        self.WHOLESSLST = [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24]
+        self.WHOLESSLST = [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31]
         self.current = [1]
         # it must start with a " symbol
         self.EDGES = {(1,'"'):self.WHOLESSLST,
@@ -331,7 +332,14 @@ class Stringk(Symbol):
                         (21,'-'):self.WHOLESSLST,
                         (22,'*'):self.WHOLESSLST,
                         (23,'/'):self.WHOLESSLST,
-                        (24,'"'):[self.ACCEPTK]
+                        (24,'@'):self.WHOLESSLST,
+                        (25,'\''):self.WHOLESSLST,
+                        (26,'.'):self.WHOLESSLST,
+                        (27,'\\'):self.WHOLESSLST,
+                        (28,'^'):self.WHOLESSLST,
+                        (29,'`'):self.WHOLESSLST,
+                        (30,'~'):self.WHOLESSLST,
+                        (31,'"'):[self.ACCEPTK]
                         }
         self.ACCEPTING = [self.ACCEPTK]
         
@@ -429,7 +437,7 @@ strTest = strTest + "\n"
 
 
 
-detectors = {0:lakey,1:opss,2:numnum,3:strTkn}
+detectors = {0:lakey,1:strTkn,2:numnum,3:opss}
 detIndex = 0
 i = 0
 rowCtr = 0
@@ -462,7 +470,7 @@ while i < len(strTest):
                    i = acceptxt[1] + 1
         else:
                    if detIndex >=3:
-                     print "Error lexico (linea: %s, posicion: %s)"  %(str(rowCtr),str(colCtr) )
+                     print ">>> Error lexico (linea: %s, posicion: %s)"  %(str(rowCtr),str(colCtr) )
                      break
                    else:
                      # Check next detector FSM
