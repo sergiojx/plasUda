@@ -439,18 +439,14 @@ strTkn = Stringk()
 
 
 
-strTest ="""
-b$ = "Este es otro error lexico"
-print b$, 1.
-print "no imprimir estO"
-"""
+strTest = "\n"
+lines = sys.stdin.readlines()
+
+for line in lines:
+   strTest = strTest + line
 
 
-
-
- 
-
-
+strTest = strTest + "\n"
 
 
 detectors = {0:lakey,1:strTkn,2:opss,3:numnum}
